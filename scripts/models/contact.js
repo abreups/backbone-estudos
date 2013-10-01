@@ -1,6 +1,7 @@
 // Defines the Model for Contacts.
 // Note que 'App.Models.Contact' é globally accessible (não tem 'var' na frente)
 App.Models.Contact = Backbone.Model.extend({
+
 	defaults: {
 		firstName: '',
 		lastName: '',
