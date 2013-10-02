@@ -5,6 +5,8 @@ App.Views.Contact = Backbone.View.extend({ // extends the built-in Backbone obje
 	template: _.template($('#template-contact').html()),
 			  $container: null, // will point to the element that Contact views will live inside of
 
+	// Backbone convention for which events to listen for and which methods
+	// to execute when they are triggered.
 	events: {
 		'click .delete': 'remove'
 	},
@@ -30,7 +32,7 @@ App.Views.Contact = Backbone.View.extend({ // extends the built-in Backbone obje
 	},
 
 	remove: function() {
-		this.model.destroy();
+		this.model.destroy(); // 'destroy' is provided by Backbone
 	}
 });
 

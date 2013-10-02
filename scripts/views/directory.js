@@ -1,6 +1,7 @@
 // This code is related to our main application view
 App.Views.Directory = Backbone.View.extend({ // extends the Backbone View object
-	events: {
+
+	events: { // event listeners
 		'click .controls .add': 'addForm',
 		'submit .controls form': 'addSubmit'
 	},
@@ -26,12 +27,17 @@ App.Views.Directory = Backbone.View.extend({ // extends the Backbone View object
 	},
 
 	addForm: function() {
+		// show() torna os campos de 'form' visíveis
+		// e focus() coloca o foco no campo de firstName.
 		this.$('.controls form').show().find('input.firstName').focus();
 	},
 
 	addSubmit: function(event) {
-		event.preventDefault();
-		var $form = this.$('.controls form');
+		event.preventDefault(); // faz o browser não submeter nada, senão a one page app não funcionaria
+		var $form = this.$('.controls form'); // pega os elementos do form e guarda numa variável local
+
+		// cria um novo contato (Model) mas ainda não coloca na Collection
+		// "It is just an orphaned Model for now"
 		var newContact = new App.Models.Contact({
 			firstName: $('input.firstName', $form).val(),
 			lastName: $('input.lastName', $form).val(),
@@ -39,10 +45,10 @@ App.Views.Directory = Backbone.View.extend({ // extends the Backbone View object
 			email: $('input.email', $form).val()
 		});
 
-		if (newContact.isValid()) {
-			App.Contacts.add(newContact);
-			$form.hide();
-			$('input[type=text]', $form).val('').blur();
+		if (newContact.isValid()) { // se o contato é válido (tem o firstName)
+			App.Contacts.add(newContact); // adiciona à lista de contatos
+			$form.hide(); // esconde os campos de entrada de dados
+			$('input[type=text]', $form).val('').blur(); // blur() remove o foco dos input fields
 		} else {
 			alert(newContact.validationError);
 		}
