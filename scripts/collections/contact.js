@@ -4,5 +4,6 @@ App.Collections.Contact = Backbone.Collection.extend({
 	// Para isso funcionar, o código do Model tem que ter sido
 	// previamente carregado! (RequireJS resolveria isso!)
 	model: App.Models.Contact
+	url: '/contacts'
 });
 

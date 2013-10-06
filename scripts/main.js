@@ -3,23 +3,25 @@ var App = {
 	Collections: {},
 	Views: {}, // para armazenar referências aos Views
 	Contacts: null,
-	Directory: null // referência para a instância of the main application view
+	Directory: null, // referência para a instância of the main application view
+	Routers: {},
+	Browser: null
 };
 
 $(function() { // Run this code when the DOM is ready
-	window.tom = new App.Models.Contact({
-		firstName: 'Thomas', lastName: 'Hunter', phoneNumber: '9895135499', email: 'me@thomashunter.name'
-	});
+	// window.tom = new App.Models.Contact({
+	// 	firstName: 'Thomas', lastName: 'Hunter', phoneNumber: '9895135499', email: 'me@thomashunter.name'
+	// });
 
 	App.Contacts = new App.Collections.Contact();
 
 	// Add contact
-	App.Contacts.add(window.tom);
+	// App.Contacts.add(window.tom);
 
 	// Add another contact
-	App.Contacts.add({
-		firstName: 'Rupert', lastName: 'Styx', phoneNumber: '9895551212', email: 'rupertstyx@example.com'
-	});
+	// App.Contacts.add({
+	// 	firstName: 'Rupert', lastName: 'Styx', phoneNumber: '9895551212', email: 'rupertstyx@example.com'
+	// });
 
 	App.Directory = new App.Views.Directory({ // performs the Directory View instantiation
 		el: $('#display') // passa uma referência ao elemente da DOM que queremos nos atachar
@@ -30,6 +32,10 @@ $(function() { // Run this code when the DOM is ready
 	App.Contacts.on('add remove', function() { // faz render do Directory View para add e remove events
 		App.Directory.render();
 	});
+
+	App.Browser = new App.Routers.Contact;
+	Backbone.history.start();
+	App.Contacts.fetch();
 });
 
 

@@ -7,7 +7,7 @@ App.Views.Directory = Backbone.View.extend({ // extends the Backbone View object
 	},
 
 	initialize: function() {
-		_.bindAll(this, 'render', 'addForm', 'addSubmit'); // overwrites the functionality of the listed events
+		_.bindAll(this, 'render', 'addForm', 'addSubmit', 'AddFormHide'); // overwrites the functionality of the listed events
 	},
 
 	render: function() {
@@ -27,9 +27,15 @@ App.Views.Directory = Backbone.View.extend({ // extends the Backbone View object
 	},
 
 	addForm: function() {
+		App.Browser.navigate('contacts/add');
 		// show() torna os campos de 'form' visíveis
 		// e focus() coloca o foco no campo de firstName.
 		this.$('.controls form').show().find('input.firstName').focus();
+	},
+
+	AddFormHide: function() {
+		App.Browser.navigate('contacts');
+		this.$('.controls form').hide();
 	},
 
 	addSubmit: function(event) {
@@ -47,7 +53,8 @@ App.Views.Directory = Backbone.View.extend({ // extends the Backbone View object
 
 		if (newContact.isValid()) { // se o contato é válido (tem o firstName)
 			App.Contacts.add(newContact); // adiciona à lista de contatos
-			$form.hide(); // esconde os campos de entrada de dados
+			newContact.save();Contact.save();
+			this.AddFormHide(); // esconde os campos de entrada de dados
 			$('input[type=text]', $form).val('').blur(); // blur() remove o foco dos input fields
 		} else {
 			alert(newContact.validationError);
