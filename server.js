@@ -38,7 +38,7 @@ http.createServer(function (req, res) {
 
 		if (req.method == 'GET') {
 			// Backbone wants a list of all Contacts
-			res.send(JSON.stringify(contacts));
+			res.end(JSON.stringify(contacts));
 		} 
 		else if (req.method == 'POST') {
 			// Backbone is creating a new contact
@@ -48,9 +48,9 @@ http.createServer(function (req, res) {
 			});
 			req.on('end', function() {
 				var contact = JSON.parse(body);
-				// Here we make a unique id
+				// Here we make up a unique id
 				contact.id = Math.random().toString(36).substr(2);
-				// The contact is store in the database
+				// The contact is stored in the database
 				contacts.push(contact);
 				// Now we send the updated contact
 				// (which has an id) back to the
@@ -79,7 +79,7 @@ http.createServer(function (req, res) {
 
 			filesystem.lstat(filename, function(err, stats) {
 				if (err || !stats.isFile()) {
-					if (req.utl != 'favicon.ico') {
+					if (req.url != '/favicon.ico') {
 						console.log("404: " + filename);
 					}
 					res.writeHead(404, {

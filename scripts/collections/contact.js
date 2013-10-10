@@ -3,7 +3,7 @@ App.Collections.Contact = Backbone.Collection.extend({
 	// of Contacts Models.
 	// Para isso funcionar, o código do Model tem que ter sido
 	// previamente carregado! (RequireJS resolveria isso!)
-	model: App.Models.Contact
+	model: App.Models.Contact,
 	url: '/contacts'
 });
 
